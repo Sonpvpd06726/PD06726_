@@ -1,44 +1,19 @@
-import React, { useState } from 'react';
-import { ScrollView, View, Text, StatusBar, StyleSheet, RefreshControl } from 'react-native';
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LoginScreen from './src/screens/ASS/LoginScreen';
+import RegisterScreen from './src/screens/ASS/RegisterScreen';
 
-const App = () => {
-  const [refreshing, setRefreshing] = useState(false);
+const Stack = createStackNavigator();
 
-  const onRefresh = () => {
-    // Thực hiện các thao tác cần khi người dùng kéo xuống để tải lại
-    // Ví dụ: Thay đổi màu status bar
-    setRefreshing(true);
-    setTimeout(() => {
-      // Simulate an async task
-      setRefreshing(false);
-      StatusBar.setBackgroundColor('blue');
-      StatusBar.setBarStyle('light-content');
-    }, 2000);
-  };
-
+export default function App() {
   return (
-    <ScrollView
-      style={styles.container}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['blue']} />
-      }>
-      <StatusBar backgroundColor="green" barStyle="dark-content" />
-
-      {/* Nội dung của ứng dụng */}
-      <View style={styles.content}>
-        <Text>Scrollable Content Goes Here</Text>
-      </View>
-    </ScrollView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    padding: 20,
-  },
-});
-
-export default App;
+}
