@@ -1,61 +1,37 @@
+// App.js
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import MainScreen from './src/screens/lab6/MainScreen';
+import DetailScreen from './src/screens/lab6/DetailScreen';
 
-const Labb5 = () => {
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+const MainStack = () => {
   return (
-    <ImageBackground
-      source={require('./src/screens/lab5/download.jpg')}
-      style={styles.backgroundImage}
-    >
-      <View style={styles.container}>
-        <Text style={styles.title}>Welcome to My App</Text>
-        <Text
-         style={styles.description}>Some introductory text goes here.</Text>
-        <TouchableOpacity
-          style={styles.getStartedButton}
-          onPress={() => console.log('Get Started pressed')}
-        >
-          <Text style={styles.buttonText}>Get Started</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+    <Stack.Navigator initialRouteName="MainScreen">
+      <Stack.Screen name="MainScreen" component={MainScreen} />
+      <Stack.Screen name="DetailScreen" component={DetailScreen} />
+    </Stack.Navigator>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-  },
-  title: {
-    marginTop:100,
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  description: {
-    fontSize: 16,
-    color: '#fff',
-    marginVertical: 10,
-  },
-  getStartedButton: {
-    backgroundColor: '#33CC99',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="MainStack">
+        <Drawer.Screen name="MainStack" component={MainStack} />
+        <Drawer.Screen name="Home" component={MainStack} />
+        <Drawer.Screen name="Chat" component={MainStack} />
+        <Drawer.Screen name="Setting" component={MainStack} />
+        <Drawer.Screen name="Help" component={MainStack} />
+        
+        {/* Add additional Drawer.Screen components for other screens if needed */}
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+};
 
-export default Labb5;
-
+export default App;
